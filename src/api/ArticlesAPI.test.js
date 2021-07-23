@@ -1,4 +1,7 @@
-
+/**
+ * Gotta return an await from API function
+ * URL formatting has to match
+ */
 import ArticlesAPI from './ArticlesAPI'
 import fetchMock from 'fetch-mock'
 require('isomorphic-fetch')
@@ -11,6 +14,7 @@ it('calls ArticlesAPI.fetchArticleByID(1)', (done) => {
   fetchMock.get('http://localhost:3001/api/articles/1', { success: true })
   return ArticlesAPI.fetchArticleByID(1)
     .then((json) => {
+      console.log(json)
       expect(json.success).toEqual(true)
       done()
     })
