@@ -10,37 +10,33 @@ afterEach(() => {
   fetchMock.restore()
 })
 
-it('calls ArticlesAPI.fetchArticleByID(1)', (done) => {
+it('calls ArticlesAPI.fetchArticleByID(1)', () => {
   fetchMock.get('http://localhost:3001/api/articles/1', { success: true })
   return ArticlesAPI.fetchArticleByID(1)
     .then((json) => {
-      console.log(json)
       expect(json.success).toEqual(true)
-      done()
     })
     .catch((err) => {
       throw new Error('Call failed')
     })
 })
 
-it('calls ArticlesAPI.fetchArticles()', (done) => {
+it('calls ArticlesAPI.fetchArticles()', () => {
   fetchMock.get('http://localhost:3001/api/articles', { success: true })
   return ArticlesAPI.fetchArticles()
     .then((json) => {
       expect(json.success).toEqual(true)
-      done()
     })
     .catch((err) => {
       throw new Error('Call failed')
     })
 })
 
-it('calls ArticlesAPI.fetchArticlesBySection(\'opinion\')', (done) => {
+it('calls ArticlesAPI.fetchArticlesBySection(\'opinion\')', () => {
   fetchMock.get('http://localhost:3001/api/articles?filter={"where":{"section":"opinion"}}', { success: true })
   return ArticlesAPI.fetchArticlesBySection('opinion')
     .then((json) => {
       expect(json.success).toEqual(true)
-      done()
     })
     .catch((err) => {
       throw new Error('Call failed')
