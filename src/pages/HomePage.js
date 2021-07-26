@@ -1,44 +1,37 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArticlesAPI from '../api/ArticlesAPI.js';
 import ArticleList from '../components/ArticleList/ArticleList.js'
-import News from '../data/news.json';
 
-class HomePage extends Component {
+const HomePage = (props) => {
 
-  state = {
-    articles: []
-  }
+  const [articles, setArticles] = useState(null)
 
-  async componentDidMount() {
-    const json = await ArticlesAPI.fetchArticles()
-    this.setState({
-      articles:json
-    })
-  }
+  useEffect(() => {
+    console.log (ArticlesAPI.fetchArticles());
+    const fetchDataAsync = async() => {
+      try {
+        console.log('loading articles')
+        const json = await ArticlesAPI.fetchArticles();
+        setArticles(json)
+      } catch (error) {
+        console.error('error found fetching articles: ', error);
+      }
+    };
+    if (articles === null) {
+      fetchDataAsync();
+    }
+  }, [articles]);
 
-  render() {
-    return (
-      <div>
-        <ArticleList articles={this.state.articles}
-          handleTitleClick={(articleID) => {
-            console.log(articleID)
-            this.props.history.push(`/articles/${articleID}`) 
-            }
-           } />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <ArticleList articles={articles}
+        handleTitleClick={(articleID) => {
+          console.log(articleID)
+          props.history.push(`/articles/${articleID}`) 
+          }
+        } />
+    </div>
+  );
 }
 
 export default HomePage;
-
-
-// Functional solution:
-// function HomePage() {
-//   return (
-//     <div>
-//       <ArticleList articles={News}
-//         handleTitleClick={(articleID) => props.history.push(`/articles/${articleID}`)} />
-//     </div>
-//   );
-// }

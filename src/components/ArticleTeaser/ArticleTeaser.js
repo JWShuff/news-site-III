@@ -1,41 +1,20 @@
-import React, { Component } from 'react';
-import { ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { Card } from "react-bootstrap";
 
-class ArticleTeaser extends Component {
-  render() {
-    /* Note: the { created_date: createdDate } syntax in this destructure is
-        taking the value of created_date from this.props and setting it to
-        a new variable called createdDate
-    */
-    const { id, title, created_date: createdDate, handleTitleClick } = this.props;
-    return (
-      <div>
-        <ListGroupItemHeading>
-          <a onClick={(e) => {
-            e.preventDefault();
-            handleTitleClick(id);
-            }}>{title}</a>
-        </ListGroupItemHeading>
-        <ListGroupItemText>{ createdDate }</ListGroupItemText>
-      </div>
-    )
-  }
+function ArticleTeaser(props) {
+  
+  return (
+    <Card bg='secondary' text='light'>
+      <Card.Link action as='a' bg='light' text='dark' href='#' onClick={ (event) => {
+        props.handleTitleClick(props.id+1);
+        event.preventDefault();
+        }}>
+        { props.title } 
+      </Card.Link>
+      <p>
+        { props.created_date }
+      </p>
+    </Card>
+  )
 }
 
 export default ArticleTeaser;
-
-
-// Functional solution:
-// function ArticleTeaser({ id, title, created_date: createdDate, handleTitleClick }) {
-//   return (
-//     <div>
-//       <ListGroupItemHeading>
-//         <a onClick={(e) => {
-//           e.preventDefault();
-//           handleTitleClick(id);
-//         }}>{title}</a>
-//       </ListGroupItemHeading>
-//       <ListGroupItemText>{createdDate}</ListGroupItemText>
-//     </div>
-//   );
-// }

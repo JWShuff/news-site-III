@@ -1,42 +1,16 @@
-import React, { Component } from 'react';
-import { Media } from 'reactstrap';
-import "./article.css";
+import { Card } from 'react-bootstrap'
 
-class Article extends Component {
-  render() {
-    const { title, created_date: createdDate, abstract, byline, image } = this.props;
-    return (
-      <Media>
-        <Media left>
-          { image && <img className="image" src={ image }/> }
-        </Media>
-        <Media body className="body">
-          <Media heading>{ title }</Media>
-          <p>{ createdDate }</p>
-          { byline && <p>{ byline }</p> }
-          <p>{ abstract }</p>
-        </Media>
-      </Media>
-    )
-  }
+function Article(props) {
+  console.log(props.article)
+  return (
+    <Card bg='dark' text='light' style={{ width: '30rem' }}>
+      { props.image && <Card.Img  version='top' alt={ props.title } src={ props.image }/> }
+      <Card.Title> {props.title} </Card.Title>
+      <Card.Subtitle> {props.created_date} </Card.Subtitle>
+      { props.byline && <Card.Text> { props.byline }</Card.Text>}
+      <Card.Body> { props.abstract }</Card.Body>
+    </Card>
+  )
 }
 
 export default Article;
-
-
-// Functional solution:
-// function Article({ title, created_date: createdDate, abstract, byline, image }) {
-//   return (
-//     <Media>
-//        <Media left>
-//          {image && <img src={image} />}
-//        </Media>
-//        <Media body>
-//          <Media heading>{title}</Media>
-//          <p>{createdDate}</p>
-//          {byline && <h2>{byline}</h2>}
-//          <p>{abstract}</p>
-//        </Media>
-//      </Media >
-//   );
-// }

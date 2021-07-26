@@ -22,18 +22,18 @@ const tryFetch = async (url) => {
 } 
 
 const fetchArticleByID = async (articleID) => {
-  return tryFetch(BASE_URL + `/${articleID}`)
+  return await tryFetch(BASE_URL + `/${articleID}`)
 }
 
-const fetchArticlesBySection = (section) => {
+const fetchArticlesBySection = async (section) => {
     let url = BASE_URL
     url += `?filter={"where":{"section":"${section}"}}`
-    return tryFetch(url)
+    return await tryFetch(url)
 };
 
-const fetchArticles = (filters = null) => {
-  if (filters==null) return tryFetch(BASE_URL)
-  return filters
+const fetchArticles = async (filters=null) => {
+  console.log('fetching articles')
+  if (filters==null) return await tryFetch(BASE_URL)
 };
 
 export default {

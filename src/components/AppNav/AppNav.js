@@ -1,34 +1,30 @@
-import React, { Component } from 'react';
-import { Navbar } from 'reactstrap';
+import { Navbar } from "react-bootstrap"
+import Sections from '../../config/Sections.json'
 
-class AppNav extends Component {
-  render() {
-    const { navItems, handleNavClick } = this.props;
-
+function AppNav() {
+    const renderNavItems = () => {
+    let elements = Sections.map((item, index) => {
+      return (
+          <Navbar.Text  key={index} text='light'>
+            <a href='#' onClick={ () => props.handleNavClick(item.value) }> 
+          | { item.label } |
+            </a> 
+          </Navbar.Text> 
+      )
+    })
     return (
-      <Navbar color="light">
-        {navItems.map((navItem) =>
-          <a href="#" onClick={ () => handleNavClick( navItem.value )} >
-            { navItem.label } |
-          </a>
-        )}
-      </Navbar>
+      <span>
+        { elements }
+      </span>
     )
   }
+  return (
+    <div>
+      <Navbar bg='secondary' text='light' variant='light' fixed='top' >
+        { renderNavItems() }
+      </Navbar>
+    </div>
+  )
 }
 
 export default AppNav;
-
-
-// Functional solution:
-// function AppNav({ navItems, handleNavClick }) {
-//   return (
-//     <Navbar color="light">
-//       {navItems.map((navItem) =>
-//         <a href="#" onClick={() => handleNavClick( navItem.value )} >
-//           { navItem.label } |
-//         </a>
-//       )}
-//     </Navbar>
-//   );
-// }

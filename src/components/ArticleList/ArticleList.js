@@ -1,36 +1,31 @@
-import React, { Component } from 'react';
-import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import ArticleTeaser from '../ArticleTeaser/ArticleTeaser.js'
+import { ListGroup } from 'react-bootstrap'
 
-class ArticleList extends Component {
-  render() {
-    const { articles, handleTitleClick } = this.props;
-    return (
-      <ListGroup>
-        { articles.map((article, index) => (
-          <ListGroupItem>
-            <ArticleTeaser { ...article } id={ index + 1 }
-              handleTitleClick={handleTitleClick}/>
-          </ListGroupItem>
-        ))}
-      </ListGroup>
-    );
+
+function ArticleList(props) {
+  let articles = props.articles
+  console.log(articles)
+
+  const getAllTeasers = (articles) => {
+    if(articles === null) {
+      return (
+        'error'
+      )
+    }
+    return articles.map((article, idx) => {
+      return(
+        <ListGroup.Item action variant='dark' className='shadow my-1' >
+          <ArticleTeaser key={idx} id={idx} title={ article.title } created_date={article.created_date} handleTitleClick={props.handleTitleClick} />
+        </ListGroup.Item>
+      ) 
+    })
   }
+
+  return (
+    <ListGroup bg='dark'>
+      { getAllTeasers(articles) }
+    </ListGroup>
+  )
 }
 
 export default ArticleList;
-
-
-// Functional solution:
-// function ArticleList({ articles, handleTitleClick }) {
-//   return (
-//     <ListGroup>
-//       {articles.map((article, index) => (
-//         <ListGroupItem>
-//           <ArticleTeaser {...article} id={ index + 1 }
-//              handleTitleClick={handleTitleClick} />
-//         </ListGroupItem>
-//       ))}
-//     </ListGroup>
-//   );
-// }
